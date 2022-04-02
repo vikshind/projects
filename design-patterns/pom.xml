@@ -4,5 +4,5 @@
   <artifactId>design-patterns</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Design Patterns</name>
-  <description>This Project demonstrate how to implement differnt Java / J2EE design Patterns</description>
+  <description>This Project demonstrate how to implement Java and J2EE design Patterns</description>
 </project>
