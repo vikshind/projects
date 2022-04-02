@@ -1,12 +1,24 @@
 package com.vth.pattern.singleton;
 
-public class Singleton {
+/**
+ * Singleton Pattern implementation example
+ * 
+ * @author vikshind
+ *
+ */
+public class Singleton implements Cloneable{
 
+	//private static Singleton instance
 	private static Singleton mySingleton = null;
 
+	//private Constructor
 	private Singleton() {
 	}
 
+	/**
+	 * Singleton instance is returned by this method
+	 * @return
+	 */
 	public static synchronized Singleton getInstance() {
 		if (mySingleton == null) {
 			mySingleton = new Singleton();
@@ -23,7 +35,12 @@ public class Singleton {
 
 	}
 
-	public static void log(String str) {
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+	    throw new CloneNotSupportedException();
+	}
+	
+	private static void log(String str) {
 		System.out.println(str);
 	}
 }
