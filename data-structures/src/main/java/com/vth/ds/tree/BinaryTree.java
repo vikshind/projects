@@ -1,7 +1,11 @@
 package com.vth.ds.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
- * BinaryTree data structure
+ * BinaryTree data structure and common operations that gets performed on this DS.
  * 
  * @author vikshind
  *
@@ -10,14 +14,27 @@ public class BinaryTree {
 
 	Node root = null;
 
+	/**
+	 * Add value to the BinaryTree
+	 * @param value
+	 */
 	public void add(int value) {
 		root = addRecursive(root, value);
 	}
 
+	/**
+	 * Check if value is present in the BinaryTree
+	 * @param value
+	 * @return
+	 */
 	public boolean containsNode(int value) {
 		return containsNode(root, value);
 	}
 
+	/**
+	 * Delete value from BinaryTree
+	 * @param value
+	 */
 	public void delete(int value) {
 		root = deleteRecursive(root, value);
 	}
@@ -92,5 +109,134 @@ public class BinaryTree {
 
 	private int findSmallestValue(Node root) {
 		return root.left == null ? root.value : findSmallestValue(root.left);
+	}
+
+	/**
+	 * Depth-First-Search :>> The in-order traversal consists of first visiting the
+	 * left sub-tree, then the root node, and finally the right sub-tree
+	 * 
+	 * @param node
+	 */
+	public void traverseInOrder(Node node) {
+		if (node != null) {
+			traverseInOrder(node.left);
+			visit(node.value);
+			traverseInOrder(node.right);
+		}
+	}
+
+	/**
+	 * Depth-First-Search :>> Pre-order traversal visits first the root node, then
+	 * the left sub-tree, and finally the right sub-tree
+	 * 
+	 * @param node
+	 */
+	public void traversePreOrder(Node node) {
+		if (node != null) {
+			visit(node.value);
+			traversePreOrder(node.left);
+			traversePreOrder(node.right);
+		}
+	}
+
+	/**
+	 * Depth-First-Search :>> Post-order traversal visits the left sub-tree, the
+	 * right subt-tree, and the root node at the end
+	 * 
+	 * @param node
+	 */
+	public void traversePostOrder(Node node) {
+		if (node != null) {
+			traversePostOrder(node.left);
+			traversePostOrder(node.right);
+			visit(node.value);
+		}
+	}
+	
+	public void traverseLevelOrder() {
+        if (root == null) {
+            return;
+        }
+
+        Queue<Node> nodes = new LinkedList<>();
+        nodes.add(root);
+
+        while (!nodes.isEmpty()) {
+
+            Node node = nodes.remove();
+
+            System.out.print(" " + node.value);
+
+            if (node.left != null) {
+                nodes.add(node.left);
+            }
+
+            if (node.right != null) {
+                nodes.add(node.right);
+            }
+        }
+    }
+
+    public void traverseInOrderWithoutRecursion() {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            Node top = stack.pop();
+            visit(top.value);
+            current = top.right;
+        }
+    }
+
+    public void traversePreOrderWithoutRecursion() {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+        stack.push(root);
+
+        while (current != null && !stack.isEmpty()) {
+            current = stack.pop();
+            visit(current.value);
+
+            if (current.right != null)
+                stack.push(current.right);
+
+            if (current.left != null)
+                stack.push(current.left);
+        }
+    }
+    
+    public void traversePostOrderWithoutRecursion() {
+        Stack<Node> stack = new Stack<>();
+        Node prev = root;
+        Node current = root;
+        stack.push(root);
+
+        while (current != null && !stack.isEmpty()) {
+            current = stack.peek();
+            boolean hasChild = (current.left != null || current.right != null);
+            boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
+
+            if (!hasChild || isPrevLastChild) {
+                current = stack.pop();
+                visit(current.value);
+                prev = current;
+            } else {
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+                if (current.left != null) {
+                    stack.push(current.left);
+                }
+            }
+        }   
+    }   
+	// Just for sysout of value
+	private void visit(int value) {
+		System.out.print(" " + value);
 	}
 }

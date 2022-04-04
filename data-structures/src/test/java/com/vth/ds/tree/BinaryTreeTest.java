@@ -32,4 +32,14 @@ public class BinaryTreeTest {
 		bt.delete(9);
 		Assert.assertFalse(bt.containsNode(9));
 	}
+	
+	@Test(enabled = true, description = "Tests binary tree traversal")
+	public void testTraversal() {
+		bt.traverseInOrder(bt.root);
+		System.out.println();
+		bt.traversePreOrder(bt.root);
+		System.out.println();
+		bt.traversePostOrder(bt.root);
+		System.out.println();
+	}
 }
