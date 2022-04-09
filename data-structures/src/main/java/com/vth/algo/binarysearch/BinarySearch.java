@@ -1,7 +1,5 @@
 package com.vth.algo.binarysearch;
 
-import java.util.Arrays;
-
 /**
  * Java implementation of recursive Binary Search
  * 

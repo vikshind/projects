@@ -32,7 +32,7 @@ public class BinaryTreeTest {
 		bt.delete(9);
 		Assert.assertFalse(bt.containsNode(9));
 	}
-	
+
 	@Test(enabled = true, description = "Tests binary tree traversal")
 	public void testTraversal() {
 		bt.traverseInOrder(bt.root);
@@ -41,5 +41,19 @@ public class BinaryTreeTest {
 		System.out.println();
 		bt.traversePostOrder(bt.root);
 		System.out.println();
+	}
+
+	@Test(enabled = true, description = "Tests if input Node is BinarySearchTree or Not")
+	public void testIsBST() {
+		//Test the BinaryTree created in setup()
+		Assert.assertTrue(bt.isBST(bt.root));
+
+		//Test the BinaryTree created using buildTree(), success case
+		Node testNode = bt.buidlTree("5 3 7 1 N N 9");
+		Assert.assertTrue(bt.isBST(testNode));
+		
+		//Test the BinaryTree created using buildTree(), failure case
+		testNode = bt.buidlTree("5 3 1 N 7 N 9");
+		Assert.assertFalse(bt.isBST(testNode));
 	}
 }

@@ -5,7 +5,8 @@ import java.util.Queue;
 import java.util.Stack;
 
 /**
- * BinaryTree data structure and common operations that gets performed on this DS.
+ * BinaryTree data structure and common operations that gets performed on this
+ * DS.
  * 
  * @author vikshind
  *
@@ -16,6 +17,7 @@ public class BinaryTree {
 
 	/**
 	 * Add value to the BinaryTree
+	 * 
 	 * @param value
 	 */
 	public void add(int value) {
@@ -24,6 +26,7 @@ public class BinaryTree {
 
 	/**
 	 * Check if value is present in the BinaryTree
+	 * 
 	 * @param value
 	 * @return
 	 */
@@ -33,6 +36,7 @@ public class BinaryTree {
 
 	/**
 	 * Delete value from BinaryTree
+	 * 
 	 * @param value
 	 */
 	public void delete(int value) {
@@ -152,91 +156,170 @@ public class BinaryTree {
 			visit(node.value);
 		}
 	}
-	
+
 	public void traverseLevelOrder() {
-        if (root == null) {
-            return;
-        }
+		if (root == null) {
+			return;
+		}
 
-        Queue<Node> nodes = new LinkedList<>();
-        nodes.add(root);
+		Queue<Node> nodes = new LinkedList<>();
+		nodes.add(root);
 
-        while (!nodes.isEmpty()) {
+		while (!nodes.isEmpty()) {
 
-            Node node = nodes.remove();
+			Node node = nodes.remove();
 
-            System.out.print(" " + node.value);
+			System.out.print(" " + node.value);
 
-            if (node.left != null) {
-                nodes.add(node.left);
-            }
+			if (node.left != null) {
+				nodes.add(node.left);
+			}
 
-            if (node.right != null) {
-                nodes.add(node.right);
-            }
-        }
-    }
+			if (node.right != null) {
+				nodes.add(node.right);
+			}
+		}
+	}
 
-    public void traverseInOrderWithoutRecursion() {
-        Stack<Node> stack = new Stack<>();
-        Node current = root;
+	public void traverseInOrderWithoutRecursion() {
+		Stack<Node> stack = new Stack<>();
+		Node current = root;
 
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
+		while (current != null || !stack.isEmpty()) {
+			while (current != null) {
+				stack.push(current);
+				current = current.left;
+			}
 
-            Node top = stack.pop();
-            visit(top.value);
-            current = top.right;
-        }
-    }
+			Node top = stack.pop();
+			visit(top.value);
+			current = top.right;
+		}
+	}
 
-    public void traversePreOrderWithoutRecursion() {
-        Stack<Node> stack = new Stack<>();
-        Node current = root;
-        stack.push(root);
+	public void traversePreOrderWithoutRecursion() {
+		Stack<Node> stack = new Stack<>();
+		Node current = root;
+		stack.push(root);
 
-        while (current != null && !stack.isEmpty()) {
-            current = stack.pop();
-            visit(current.value);
+		while (current != null && !stack.isEmpty()) {
+			current = stack.pop();
+			visit(current.value);
 
-            if (current.right != null)
-                stack.push(current.right);
+			if (current.right != null)
+				stack.push(current.right);
 
-            if (current.left != null)
-                stack.push(current.left);
-        }
-    }
-    
-    public void traversePostOrderWithoutRecursion() {
-        Stack<Node> stack = new Stack<>();
-        Node prev = root;
-        Node current = root;
-        stack.push(root);
+			if (current.left != null)
+				stack.push(current.left);
+		}
+	}
 
-        while (current != null && !stack.isEmpty()) {
-            current = stack.peek();
-            boolean hasChild = (current.left != null || current.right != null);
-            boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
+	public void traversePostOrderWithoutRecursion() {
+		Stack<Node> stack = new Stack<>();
+		Node prev = root;
+		Node current = root;
+		stack.push(root);
 
-            if (!hasChild || isPrevLastChild) {
-                current = stack.pop();
-                visit(current.value);
-                prev = current;
-            } else {
-                if (current.right != null) {
-                    stack.push(current.right);
-                }
-                if (current.left != null) {
-                    stack.push(current.left);
-                }
-            }
-        }   
-    }   
+		while (current != null && !stack.isEmpty()) {
+			current = stack.peek();
+			boolean hasChild = (current.left != null || current.right != null);
+			boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
+
+			if (!hasChild || isPrevLastChild) {
+				current = stack.pop();
+				visit(current.value);
+				prev = current;
+			} else {
+				if (current.right != null) {
+					stack.push(current.right);
+				}
+				if (current.left != null) {
+					stack.push(current.left);
+				}
+			}
+		}
+	}
+
 	// Just for sysout of value
 	private void visit(int value) {
 		System.out.print(" " + value);
+	}
+
+	public boolean isBST(Node root) {
+		boolean result = true;
+		if (root.left != null) {
+			if (root.value > root.left.value) {
+				result = isBST(root.left);
+			}
+			else {
+				result = false;
+			}
+		}
+		if (result &&  root.right != null) {
+			if (root.value < root.right.value) {
+				result = isBST(root.right);
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
+	}
+
+	public Node buidlTree(String str) {
+
+		if (str.length() == 0 || str.charAt(0) == 'N') {
+			return null;
+		}
+
+		String ip[] = str.split(" ");
+		// Create the root of the tree
+		Node root = new Node(Integer.parseInt(ip[0]));
+		// Push the root to the queue
+
+		Queue<Node> queue = new LinkedList<>();
+
+		queue.add(root);
+		// Starting from the second element
+
+		int i = 1;
+		while (queue.size() > 0 && i < ip.length) {
+
+			// Get and remove the front of the queue
+			Node currNode = queue.peek();
+			queue.remove();
+
+			// Get the current node's value from the string
+			String currVal = ip[i];
+
+			// If the left child is not null
+			if (!currVal.equals("N")) {
+
+				// Create the left child for the current node
+				currNode.left = new Node(Integer.parseInt(currVal));
+				// Push it to the queue
+				queue.add(currNode.left);
+			}
+
+			// For the right child
+			i++;
+			if (i >= ip.length)
+				break;
+
+			currVal = ip[i];
+
+			// If the right child is not null
+			if (!currVal.equals("N")) {
+
+				// Create the right child for the current node
+				currNode.right = new Node(Integer.parseInt(currVal));
+
+				// Push it to the queue
+				queue.add(currNode.right);
+			}
+			i++;
+		}
+
+		return root;
 	}
 }
