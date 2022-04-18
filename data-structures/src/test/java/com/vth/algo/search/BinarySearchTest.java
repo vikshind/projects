@@ -1,4 +1,4 @@
-package com.vth.algo.binarysearch;
+package com.vth.algo.search;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

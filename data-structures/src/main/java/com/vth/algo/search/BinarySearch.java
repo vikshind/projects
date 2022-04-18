@@ -1,4 +1,4 @@
-package com.vth.algo.binarysearch;
+package com.vth.algo.search;
 
 /**
  * Java implementation of recursive Binary Search
