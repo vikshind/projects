@@ -8,7 +8,7 @@
 	<name>Design Patterns</name>
 	<description>This Project demonstrate how to implement Java and J2EE design Patterns</description>
 	<properties>
-		<testng.version>6.11</testng.version>
+		<testng.version>7.5</testng.version>
 	</properties>
 	<dependencies>
 		<dependency>
