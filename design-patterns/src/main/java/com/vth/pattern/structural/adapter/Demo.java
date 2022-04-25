@@ -1,5 +1,11 @@
 package com.vth.pattern.structural.adapter;
 
+/**
+ * Demo of Adapter Pattern ussage
+ * 
+ * @author vikshind
+ *
+ */
 public class Demo {
 	public static void main(String[] args) {
 		AudioPlayer audioPlayer = new AudioPlayer();
