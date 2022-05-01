@@ -44,9 +44,11 @@ class BinarySearch {
 	// Driver method to test above
 	public static void main(String args[]) {
 		BinarySearch binarySearch = new BinarySearch();
-		int arr[] = { 2, 3, 4, 10, 40 };
+		
+
+		int arr[] = {-1,0,3,5,9,12};
 		int n = arr.length;
-		int x = 10;
+		int x = 2;
 		int result = binarySearch.search(arr, 0, n - 1, x);
 		if (result == -1)
 			log("Element not present");
